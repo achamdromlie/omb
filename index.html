@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SCAN VOUCHER</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+
+    <script src="llqrcode.js"></script>
+    <script src="webqr.js"></script>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Lato;
+            font-weight: 400;
+            background-color: #26282a;
+            color: white;
+        }
+        
+        #v {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #qr-canvas {
+            display: none;
+        }
+        
+        #result {
+            display: none;
+            visibility: hidden;
+        }
+        
+        .center {
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .spacer {
+            margin-top: 6rem;
+        }
+        /* barcode container */
+        
+        .anim-box {
+            position: relative;
+            width: 200px;
+            height: 145px;
+            padding: 25px 30px;
+            transition: transform .6s ease-out;
+        }
+        /* adds the 4 corners */
+        
+        .anim-box:before,
+        .anim-box:after,
+        .anim-box>:first-child:before,
+        .anim-box>:first-child:after {
+            position: absolute;
+            width: 10%;
+            height: 15%;
+            border-color: white;
+            border-style: solid;
+            content: ' ';
+        }
+        /* top left corner */
+        
+        .anim-box:before {
+            top: 0;
+            left: 0;
+            border-width: 2px 0 0 2px;
+        }
+        /* top right corner */
+        
+        .anim-box:after {
+            top: 0;
+            right: 0;
+            border-width: 2px 2px 0 0;
+        }
+        /* bottom right corner */
+        
+        .anim-box>:first-child:before {
+            bottom: 0;
+            right: 0;
+            border-width: 0 2px 2px 0;
+        }
+        /* bottom left corner */
+        
+        .anim-box>:first-child:after {
+            bottom: 0;
+            left: 0;
+            border-width: 0 0 2px 2px;
+        }
+        /* barcode bars */
+        
+        .anim-item {
+            display: inline-block;
+            background-color: white;
+            width: 100%;
+            height: 100%;
+        }
+        /* grow on hover */
+        
+        .anim-box:hover {
+            transform: scale(1.5, 1.5);
+        }
+        
+        .anim-box:hover .scanner {
+            animation-play-state: running;
+        }
+        /* animated laser beam */
+        
+        .scanner {
+            width: 100%;
+            height: 3px;
+            background-color: red;
+            opacity: 0.7;
+            position: relative;
+            box-shadow: 0px 0px 8px 10px rgba(170, 11, 23, 0.49);
+            top: 50%;
+            animation-name: scan;
+            animation-duration: 4s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-play-state: paused;
+        }
+        
+        @keyframes scan {
+            0% {
+                box-shadow: 0px 0px 8px 10px rgba(170, 11, 23, 0.49);
+                top: 50%;
+            }
+            25% {
+                box-shadow: 0px 6px 8px 10px rgba(170, 11, 23, 0.49);
+                top: 5px;
+            }
+            75% {
+                box-shadow: 0px -6px 8px 10px rgba(170, 11, 23, 0.49);
+                top: 98%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h2>SCAN QR CODE</h2>
+    <div class='spacer'></div>
+    <div class='anim-box center spacer'>
+        <!-- empty first child used for corners -->
+        <div></div>
+        <div class='scanner'></div>
+        <div id="outdiv" class="anim-item"></div>
+    </div>
+    <div class='spacer'></div>
+    <p>Ketuk kotak scanner lalu arahkan pada Code QR</p>
+    <span>@omb.id</span>
+
+    <canvas id="qr-canvas" width="100%" height="100%">
+        <div id="mainbody">
+            <div id="result"></div>
+        </div>
+    </canvas>
+
+
+    <!-- javascript -->
+    <script type="text/javascript">
+        load();
+    </script>
+</body>
+
+</html>
