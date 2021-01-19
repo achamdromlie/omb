@@ -16,13 +16,8 @@
             text-align: center;
             font-family: Lato;
             font-weight: 400;
-            background-color: #26282a;
-            color: white;
-        }
-        
-        #v {
-            width: 100%;
-            height: 100%;
+            background-color: white;
+            color: #26282a;
         }
         
         #qr-canvas {
@@ -32,6 +27,11 @@
         #result {
             display: none;
             visibility: hidden;
+        }
+        
+        #v {
+            width: 100%;
+            height: auto;
         }
         
         .center {
@@ -60,9 +60,9 @@
             position: absolute;
             width: 10%;
             height: 15%;
-            border-color: white;
+            border-color: rgb(0, 255, 0);
             border-style: solid;
-            content: ' ';
+            content: '';
         }
         /* top left corner */
         
@@ -95,7 +95,10 @@
         /* barcode bars */
         
         .anim-item {
-            display: inline-block;
+            z-index: -1;
+            top: 100px;
+            right: 0;
+            position: fixed;
             background-color: white;
             width: 100%;
             height: 100%;
@@ -144,22 +147,25 @@
 </head>
 
 <body>
-    <h2>SCAN QR CODE</h2>
+    <div style="background-color: white; ">
+        <h2>SCAN QR CODE</h2>
+        <p>Ketuk kotak scanner lalu arahkan pada Code QR</p>
+    </div>
     <div class='spacer'></div>
     <div class='anim-box center spacer'>
         <!-- empty first child used for corners -->
         <div></div>
         <div class='scanner'></div>
-        <div id="outdiv" class="anim-item"></div>
     </div>
     <div class='spacer'></div>
-    <p>Ketuk kotak scanner lalu arahkan pada Code QR</p>
-    <span>@omb.id</span>
 
+    <div id="outdiv" class="anim-item"></div>
+
+
+    <div id="mainbody">
+        <div id="result"></div>
+    </div>
     <canvas id="qr-canvas" width="100%" height="100%">
-        <div id="mainbody">
-            <div id="result"></div>
-        </div>
     </canvas>
 
 
